@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-const initialState = {
+export const initialState = {
+  theme: "light",
   dataSource: [
     // {
     //   Date: new Date(),
@@ -60,15 +61,18 @@ const initialState = {
   ],
 };
 
-const dashboardSlice = createSlice({
+export const dashboardSlice = createSlice({
   name: "dashboard",
   initialState,
   reducers: {
     updateDataSource: (state, action) => {
       state.dataSource = action.payload;
     },
+    toggleTheme: (state, action) => {
+      console.log("Asdsad");
+    },
   },
 });
 
-export const { updateDataSource } = dashboardSlice.actions;
+export const { updateDataSource, toggleTheme } = dashboardSlice.actions;
 export default dashboardSlice.reducer;

@@ -11,7 +11,6 @@ import {
   PlusOutlined,
 } from "@ant-design/icons";
 
-import Search from "antd/es/input/Search";
 import CountUp from "react-countup";
 import {
   Card,
@@ -29,7 +28,7 @@ import {
 } from "antd";
 import ChartComp from "./components/Chartone";
 import ChartComp2 from "./components/Charttwo";
-import { updateDataSource } from "../Redux/DashboardSlice";
+// import { updateDataSource } from "../Redux/DashboardSlice";
 import moment from "moment";
 import AddForm from "./components/Dataform";
 
@@ -95,7 +94,7 @@ const StyledButton = styled(Button)`
 `;
 const formatter = (value) => <CountUp end={value} separator="," />;
 
-//table components
+//table components..................
 const EditableContext = React.createContext(null);
 const EditableRow = ({ index, ...props }) => {
   const [form] = Form.useForm();
@@ -175,7 +174,7 @@ const EditableCell = ({
   return <td {...restProps}>{childNode}</td>;
 };
 const onSearch = (value) => console.log(value);
-// FUNCTIONAL COMPONENT
+// FUNCTIONAL COMPONENT .................................
 const Dashboard = () => {
   const dispatch = useDispatch();
   const dataSource = useSelector((state) => state?.dashboard?.dataSource);
@@ -202,20 +201,18 @@ const Dashboard = () => {
 
   const startIdx = (currentPage - 1) * itemsPerPage;
   const paginatedData = dataSource.slice(startIdx, startIdx + itemsPerPage);
-
+  // delete button code.......................
   const handleDelete = (key) => {
     const newData = dataSource.filter((item) => item.key !== key);
     dispatch(updateDataSource(newData));
   };
 
-  //Edit button comp
+  //Edit button comp .......................................................
   const handleEdit = (record) => {
     setEditFormData(record);
   };
 
-  // form reset
-  //<Table open1={open} setopen1={setopen} />
-  // columns title
+  // table columns ......................................
   const defaultColumns = [
     {
       title: "Name",
@@ -265,7 +262,7 @@ const Dashboard = () => {
     },
   ];
 
-  // Save the data
+  // Save data code ............................
   const handleSave = (values) => {
     console.log(values);
     if (editFormData) {
@@ -317,7 +314,7 @@ const Dashboard = () => {
 
   return (
     <>
-      {/* TITLE */}
+      {/* TITLE ........................................... */}
       <StyledTitle level={5}>Dashboard</StyledTitle>
 
       {/* FIRST FOUR CARDS */}
@@ -424,14 +421,24 @@ const Dashboard = () => {
       {/* CHART CARDS */}
       <Row>
         <Col span={8}>
-          <StyledCardChart bordered={false} style={{ width: "640px" }}>
+          <StyledCardChart
+            bordered={false}
+            style={{
+              width: "640px",
+              height: dataSource.length > 0 ? "550px" : "200px",
+            }}
+          >
             <ChartComp dataSource={dataSource} />
           </StyledCardChart>
         </Col>
         <Col span={8}>
           <StyledCardChart
             bordered={false}
-            style={{ width: "615px", marginLeft: "240px" }}
+            style={{
+              width: "615px",
+              marginLeft: "240px",
+              height: dataSource.length > 0 ? "550px" : "200px",
+            }}
           >
             <ChartComp2 dataSource={dataSource} />
           </StyledCardChart>
@@ -460,7 +467,7 @@ const Dashboard = () => {
                     setOpen(true);
                   }}
                 >
-                  Add Information
+                  Add Record
                 </StyledButton>
               </Space>
             }

@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import dataSourceReducer from "./DashboardSlice";
+// import dashboardReducer from "./slice";
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    dashboard: dataSourceReducer,
+    dashboard: dashboardReducer,
   },
 });
 
